@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instagram User Reels</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: flex-start;
+        }
+        .video-item {
+            flex: 1 1 calc(33.333% - 16px); /* Three items per row with a 16px gap */
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: 240px; /* Adjust as needed */
+            border: none;
+        }
+        .video-item p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <label for="username">Instagram Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Get Reels</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if filtered_data %}
+        <h2>Filtered Video Data</h2>
+        <div class="video-grid">
+            {% for data in filtered_data %}
+                <div class="video-item">
+                    <iframe src="{{ data.video_url }}" allowfullscreen></iframe>
+                    <p>Likes: {{ data.like_count }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
